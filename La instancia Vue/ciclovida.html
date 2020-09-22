@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciclo de vida de una instancia</title>
+</head>
+<body>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+    //Cada instancia vue pasa por una serie de pasos de inicialización cuando es creada.
+    //Mientras tanto, también ejecuta unas funciones llamadas lifecycle hooks, dando la oportunidad
+    //a los usuarios de añadir su propio código en una etapa en particular.
+
+    //Por ejemplo, el hook created puede ser usado para ejecutar código después de que una instancia sea creada.
+    new Vue({
+        data: {
+            a: 1
+        },
+        created: function(){
+            //'this' hace referencia a la instancia vm
+            console.log('a es: '+ this.a)
+        }
+    })
+    </script>
+
+</body>
+</html>

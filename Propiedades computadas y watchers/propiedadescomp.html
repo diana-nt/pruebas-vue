@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedades computadas</title>
+</head>
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Las expresiones con template son convenientes, pero están enfocadas a 
+    operaciones simples. Para una lógica más compleja, usamos las propiedades computadas. -->
+    
+
+    <div id="example">
+        <p>Mensaje original: "{{ message }}"</p>
+        <p>Mensaje invertido: "{{ reversedMessage }}"</p>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                message: 'Hola'
+            },
+            computed: {
+                // getter computado
+                reversedMessage: function () {
+                // 'this' hace referencia  a la instancia vm
+                return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        console.log(vm.reversedMessage)
+        vm.message= 'Adiós'
+        console.log(vm.reversedMessage)
+
+    </script>
+
+</body>
+</html>
