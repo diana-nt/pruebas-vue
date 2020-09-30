@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularios</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- Texto -->
+    <div id="app">
+        <input v-model="message" placeholder="edit me">
+        <p>El mensaje es: {{ message }}</p>  
+    </div>
+    
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                message: ''
+            }
+        })
+    </script>
+
+    <hr>
+
+
+
+<!-- Texto de varias líneas -->
+    <br>
+    <div id="app-2">  
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+        <p>El mensaje es: </p>
+        <p style="white-space: pre-line;">{{ message }}</p>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app-2',
+            data: {
+                message: ''
+            }
+        })
+    </script>
+    <hr>
+
+
+<!-- Checkbox -->
+    <br>
+    <div id="app-3">
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el:'#app-3',
+            data: {
+                checked: false
+            }
+        })
+    </script>
+    <hr>
+
+
+
+<!-- Múltiples checkbox -->
+    <br>
+    <div id="app-4">
+        <input type="checkbox" id="sara" value="Sara" v-model="nombresSeleccionados">
+        <label for="sara">Sara</label>
+        <input type="checkbox" id="manuel" value="Manuel" v-model="nombresSeleccionados">
+        <label for="manuel">Manuel</label>
+        <input type="checkbox" id="vladimir" value="Vladimir" v-model="nombresSeleccionados">
+        <label for="vladimir">Vladimir</label>
+        <br>
+        <span>Nombres seleccionados: {{ nombresSeleccionados }}</span>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app-4",
+            data: {
+                nombresSeleccionados: []
+            }
+        })
+    </script>
+    <hr>
+
+
+
+<!-- Radio -->
+    <br>
+    <div id="app-5">
+        <input type="radio" id="uno" value="Uno" v-model="elegido">
+        <label for="uno">Uno</label>
+        <br>
+        <input type="radio" id="dos" value="Dos" v-model="elegido">
+        <label for="dos">Dos</label>
+        <br>
+        <span>Elegido: {{ elegido }}</span>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: "#app-5",
+            data: {
+                elegido: ''
+            }
+        })
+    </script>
+    <hr>
+
+
+
+<!-- Select -->
+    <br>
+    <div id="app-6">
+        <select v-model="seleccionado">
+            <option disabled value="">Selecciona una opción</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+          <span>Seleccionado: {{ seleccionado }}</span>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app-6",
+            data: {
+                seleccionado: ''
+            }
+        })
+    </script>
+    <hr>
+
+
+
+<!-- Selección múltiple -->
+    <br>
+    <div id="app-7">
+        <select v-model="seleccion" multiple>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+          <br>
+          <span>Seleccionado/s: {{ seleccion }}</span>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app-7",
+            data: {
+                seleccion: []
+            }
+        })
+    </script>
+    <hr>
+
+
+
+<!-- Opción dinámica -->
+    <br>
+    <div id="app-8">
+        <select v-model="seleccion">
+            <option v-for="option in options" v-bind:value="option.value">
+              {{ option.text }}
+            </option>
+          </select>
+          <span>Selecionado/s: {{ seleccion }}</span>
+    </div>
+
+    <script>
+        new Vue({
+        el: '#app-8',
+        data: {
+            seleccion: 'A',
+            options: [
+            { text: 'Uno', value: 'A' },
+            { text: 'Dos', value: 'B' },
+            { text: 'Tres', value: 'C' }
+            ]
+        }
+        })
+    </script>
+    <hr>
+
+    <!-- Para radio, checkbox, y select, los valores dde binding con v-model son 
+    generalmente estáticos (o booleanos para los checkbox). Para darle mayor dinamismo
+    podemos usar v-bind. -->
+
+</body>
+</html>
