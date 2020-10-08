@@ -28,5 +28,12 @@ export default new Vuex.Store({
       })
     }
   },
+  getters: {
+  productsOnStock(state){
+    return state.products.filter(product => {
+      return product.inventory > 0;
+    })
+  }
+  },
   modules: {}
 })
