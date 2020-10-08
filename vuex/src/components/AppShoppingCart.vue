@@ -3,14 +3,21 @@
         <h1>Carrito</h1>
         <hr>
         <ul>
-            <li>...</li>
+            <li v-for="item in cartItems" :key="item.id">
+                {{ item.title }} ({{ item.quantity }})
+            </li>
         </ul>
     </div>
 </template>
 
 <script>
 export default {
-name: "AppShoppingCart.vue"
+name: "AppShoppingCart.vue",
+    computed: {
+    cartItems() {
+        return this.$store.getters.productsOnCarts;
+    }
+    }
 }
 </script>
 
