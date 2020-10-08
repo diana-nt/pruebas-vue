@@ -26,7 +26,7 @@ export default {
     },
     methods: {
       addToCart(product) {
-          this.$store.dispatch('addProdcutToCart', product);
+          this.$store.dispatch('addProductToCart', product);
       }
     },
     computed: {

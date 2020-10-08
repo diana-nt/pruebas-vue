@@ -24,8 +24,15 @@ export default new Vuex.Store({
         quantity: 1
       })
     },
+    removeProductFromCart(state, index){
+      state.cart.splice(index, 1);
+    },
     decrementProductInventory(state, product){
       product.inventory--;
+    },
+    incrementProductInventory(state, item){
+      const product = state.products.find(product => product.id === item.id);
+      product.inventory += item.quantity;
     }
   },
       //Las mutaciones siguen siendo las unicas capaces de cambiar el valor de algo en el state.
@@ -40,7 +47,7 @@ export default new Vuex.Store({
         });
       })
     },
-    addProdcutToCart(context, product){
+    addProductToCart(context, product){
       //Hay inventario de ese producto?
       if (product.inventory === 0) return;
 
@@ -57,6 +64,15 @@ export default new Vuex.Store({
 
       //Restar al inventario de ese producto
       context.commit('decrementProductInventory', product)
+    },
+    removeProductFromCart(context, index){
+      const item = context.state.cart[index];
+
+      //Eliminar el producto del carrito.
+      context.commit('removeProductFromCart', index);
+
+      //Restaurar el inventario.
+      context.commit('incrementProductInventory', item);
     }
   },
       //Propiedades computadas para stores

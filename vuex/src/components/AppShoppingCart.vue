@@ -3,8 +3,9 @@
         <h1>Carrito</h1>
         <hr>
         <ul>
-            <li v-for="item in cartItems" :key="item.id">
+            <li v-for="(item, $index) in cartItems" :key="item.id">
                 {{ item.title }} ({{ item.quantity }})
+                <button @click="removeItem($index)">x</button>
             </li>
         </ul>
     </div>
@@ -13,6 +14,11 @@
 <script>
 export default {
 name: "AppShoppingCart.vue",
+    methods: {
+        removeItem(index){
+            this.$store.dispatch('removeProductFromCart', index);
+        }
+    },
     computed: {
     cartItems() {
         return this.$store.getters.productsOnCarts;
