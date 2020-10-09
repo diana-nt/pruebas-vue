@@ -8,10 +8,16 @@
                 <button @click="removeItem($index)">x</button>
             </li>
         </ul>
+
+        <hr>
+
+        <h4>Total {{ cartTotal || 0}}</h4>
     </div>
 </template>
 
 <script>
+import {currency} from "../utils/currency";
+
 export default {
 name: "AppShoppingCart.vue",
     methods: {
@@ -22,7 +28,10 @@ name: "AppShoppingCart.vue",
     computed: {
     cartItems() {
         return this.$store.getters.productsOnCarts;
-    }
+    },
+        cartTotal() {
+            return currency(this.$store.getters.cartTotal, "€");
+        }
     }
 }
 </script>
