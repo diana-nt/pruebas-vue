@@ -6,7 +6,7 @@
         <ul>
             <li
                 :class="{'sold-out': $store.getters.nearlySoldOut(product.id)}"
-                @click="selectProduct(product)" v-for="product in products" :key="product.id">
+                @click="selectProduct(product)" v-for="product in productsOnStock" :key="product.id">
                 {{ product.title }} | {{ product.price }}
                 <i>{{ product.inventory }} </i>
                 <button @click="addToCart(product)">Cart</button>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-// import api from "../api/shop.js";
+import {mapState ,mapGetters, mapActions, mapMutations} from 'vuex';
 export default {
     name: "AppProductList",
     async created() {
@@ -27,17 +27,32 @@ export default {
         }
     },
     methods: {
-      addToCart(product) {
-          this.$store.dispatch('addProductToCart', product);
-      },
-        selectProduct(product) {
-          this.$store.commit("setSelectedProduct", product);
-        }
+        ...mapActions({
+         addToCart: "addProductToCart"
+     }),
+        ...mapMutations({
+            selectProduct: "setSelectedProduct"
+        })
     },
+    // methods: {
+    //   addToCart(product) {
+    //       this.$store.dispatch('addProductToCart', product);
+    //   },
+    //     selectProduct(product) {
+    //       this.$store.commit("setSelectedProduct", product);
+    //     }
+    // },
+    // computed: {
+    //     products() {
+    //         // return this.$store.state.products;
+    //         return this.$store.getters.productsOnStock;
+    //     }
+    // }
     computed: {
-        products() {
-            // return this.$store.state.products;
-            return this.$store.getters.productsOnStock;
+        ...mapState(["selectedProduct"]),
+        ...mapGetters(["productsOnStock"]),
+        testing() {
+            return null;
         }
     }
 };

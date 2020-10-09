@@ -23,21 +23,30 @@
 
 <script>
 import {currency} from "../utils/currency";
+import {mapGetters, mapActions} from 'vuex';
 
 export default {
 name: "AppShoppingCart.vue",
     methods: {
-        removeItem(index){
-            this.$store.dispatch('removeProductFromCart', index);
-        },
-        checkout() {
-            this.$store.dispatch('checkout');
-        }
+        // removeItem(index){
+        //     this.$store.dispatch('removeProductFromCart', index);
+        // },
+        // checkout() {
+        //     this.$store.dispatch('checkout');
+        // }
+
+        ...mapActions({
+            removeItem: "removeProductFromCart"
+        }),
+        ...mapActions(["checkout"])
     },
     computed: {
-    cartItems() {
-        return this.$store.getters.productsOnCarts;
-    },
+        // cartItems() {
+        //     return this.$store.getters.productsOnCarts;
+        // },
+        ...mapGetters({
+            cartItems: "productsOnCarts"
+        }),
         cartTotal() {
             return currency(this.$store.getters.cartTotal, "€");
         }
