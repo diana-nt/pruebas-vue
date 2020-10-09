@@ -4,7 +4,9 @@
         <h1>Listado de productos</h1>
         <hr />
         <ul>
-            <li @click="selectProduct(product)" v-for="product in products" :key="product.id">
+            <li
+                :class="{'sold-out': $store.getters.nearlySoldOut(product.id)}"
+                @click="selectProduct(product)" v-for="product in products" :key="product.id">
                 {{ product.title }} | {{ product.price }}
                 <i>{{ product.inventory }} </i>
                 <button @click="addToCart(product)">Cart</button>
@@ -44,5 +46,12 @@ export default {
 <style scoped>
 ul {
     text-align: left;
+}
+
+.sold-out {
+    background-color: lightpink;
+    border: 3px solid tomato;
+    padding: 0.3rem;
+    margin: 0.1rem;
 }
 </style>

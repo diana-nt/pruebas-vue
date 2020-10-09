@@ -129,8 +129,13 @@ export default new Vuex.Store({
     cartTotal (state, getters) {
       return getters.productsOnCarts.reduce((total, current) => total + current.price * current.quantity, 0);
     },
-    selectedProduct(state){
-    return state.selectedProduct;
+    selectedProduct(state) {
+      return state.selectedProduct;
+    },
+    nearlySoldOut(state) {
+      return id => {
+        return state.products.find(product => product.id === id).inventory < 2
+      };
     }
   },
   modules: {}
