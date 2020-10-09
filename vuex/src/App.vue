@@ -2,17 +2,20 @@
     <div id="app">
         <AppProductList />
         <AppShoppingCart />
+        <AppProductEdit />
     </div>
 </template>
 
 <script>
     import AppProductList from "./components/AppProductList.vue";
     import AppShoppingCart from "./components/AppShoppingCart";
+    import AppProductEdit from "./components/AppProductEdit";
     export default {
         name: "app",
         components: {
             AppProductList,
-            AppShoppingCart
+            AppShoppingCart,
+            AppProductEdit
         }
     };
 </script>
@@ -26,9 +29,14 @@
     margin-top: 60px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 #app > * {
     flex-basis: 49%;
+}
+
+#app div:last-of-type {
+    flex-basis: 100%;
 }
 </style>

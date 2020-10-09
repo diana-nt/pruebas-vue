@@ -6,16 +6,31 @@ import shop from "../api/shop";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  strict: true,
   state: {
     products: [],
     cart: [],
     checkoutError: false,
+    selectedProduct: {}
   },
       //Las mutaciones son la unica forma que tenemos de cambiar el estado en vuex.
       //Son similares a los eventos.
   mutations: {
     setProducts(state, products){
       state.products = products;
+    },
+    setSelectedProduct(state, product) {
+      state.selectedProduct = product;
+    },
+    editProduct(state, data) {
+        //Buscar el indice del producto
+      const index = state.products.findIndex(product => product.id === state.selectedProduct.id);
+
+        //Componer el producto en base a las propiedades cambiadas
+      const product = Object.assign({}, state.products[index], data);
+
+        //Actualizarlo activando la reactividad
+      Vue.set(state.products, index, product);
     },
     incrementProductQuantity(state, item) {
       item.quantity++;
@@ -113,6 +128,9 @@ export default new Vuex.Store({
     },
     cartTotal (state, getters) {
       return getters.productsOnCarts.reduce((total, current) => total + current.price * current.quantity, 0);
+    },
+    selectedProduct(state){
+    return state.selectedProduct;
     }
   },
   modules: {}
