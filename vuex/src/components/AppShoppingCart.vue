@@ -9,9 +9,15 @@
             </li>
         </ul>
 
+        <button v-if="cartItems.length" @click="checkout">Checkout</button>
+
         <hr>
 
         <h4>Total {{ cartTotal || 0}}</h4>
+
+        <div v-if="$store.state.checkoutError">
+            <p>Error procesando los productos...</p>
+        </div>
     </div>
 </template>
 
@@ -23,6 +29,9 @@ name: "AppShoppingCart.vue",
     methods: {
         removeItem(index){
             this.$store.dispatch('removeProductFromCart', index);
+        },
+        checkout() {
+            this.$store.dispatch('checkout');
         }
     },
     computed: {

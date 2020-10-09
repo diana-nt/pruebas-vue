@@ -1,13 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import api from '../api/shop.js';
+import shop from "../api/shop";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     products: [],
-    cart: []
+    cart: [],
+    checkoutError: false,
   },
       //Las mutaciones son la unica forma que tenemos de cambiar el estado en vuex.
       //Son similares a los eventos.
@@ -33,6 +35,12 @@ export default new Vuex.Store({
     incrementProductInventory(state, item){
       const product = state.products.find(product => product.id === item.id);
       product.inventory += item.quantity;
+    },
+    emptyCart(state) {
+      state.cart = []
+    },
+    setCheckoutError(state, error) {
+      state.checkoutError = error;
     }
   },
       //Las mutaciones siguen siendo las unicas capaces de cambiar el valor de algo en el state.
@@ -48,31 +56,42 @@ export default new Vuex.Store({
       })
     },
     addProductToCart(context, product){
-      //Hay inventario de ese producto?
+        //Hay inventario de ese producto?
       if (product.inventory === 0) return;
 
-      //Existe ya en el carrito?
+        //Existe ya en el carrito?
       const item = context.state.cart.find(item => item.id === product.id);
 
       if (item) {
-        //Si es asi, añadir uno mas a la compra
+          //Si es asi, añadir uno mas a la compra
         context.commit('incrementProductQuantity', item);
       } else {
-        //Si no es asi, añadir el producto al carrito
+          //Si no es asi, añadir el producto al carrito
         context.commit('addProductToCart', product);
       }
 
-      //Restar al inventario de ese producto
+       //Restar al inventario de ese producto
       context.commit('decrementProductInventory', product)
     },
     removeProductFromCart(context, index){
       const item = context.state.cart[index];
 
-      //Eliminar el producto del carrito.
+        //Eliminar el producto del carrito.
       context.commit('removeProductFromCart', index);
 
-      //Restaurar el inventario.
+        //Restaurar el inventario.
       context.commit('incrementProductInventory', item);
+    },
+    checkout({ commit, state }){
+      shop.buyProducts(state.cart, () => {
+          //Vaciar el carrito
+        commit("emptyCart");
+          //Establecer que no hay errores
+        commit("setCheckoutError", false);
+      }, () => {
+          //Establecer que hay errores
+        commit("setCheckoutError", true);
+      })
     }
   },
       //Propiedades computadas para stores
