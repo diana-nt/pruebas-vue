@@ -12,26 +12,25 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "AppUser",
-  mounted() {
-    this.user = this.$root.$refs.AppUserList.user.find(user => {
-      return user.login.username === this.$route.params.username;
-    });
-  },
   data() {
     return {
-      user: null
+      username: this.$route.params.username
     };
   },
   computed: {
+    ...mapState(["users"]),
+    user() {
+      return this.users.find(user => user.login.username === this.username);
+    },
     userData() {
-      return this.user
-        ? {
-            fullName: `${this.user.name.first} ${this.user.name.last}`,
-            thumbnail: this.user.picture.large
-          }
-        : null;
+      return {
+        fullName: `${this.user.name.first} ${this.user.name.last}`,
+        thumbnail: this.user.picture.large
+      };
     }
   }
 };
