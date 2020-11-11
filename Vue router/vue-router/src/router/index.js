@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import AppUserList from "../views/AppUserList.vue";
 import AppContact from "@/views/AppContact";
 import AppLegal from "@/views/AppLegal";
+import AppUser from "@/components/AppUser";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/legal",
     name: "Legal",
     component: AppLegal
+  },
+  {
+    path: "/user/:username",
+    name: "Users",
+    component: AppUser
   }
   // {
   //   path: "/about",

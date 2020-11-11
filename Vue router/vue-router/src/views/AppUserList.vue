@@ -7,14 +7,16 @@
         v-for="(user, $index) in users"
         :key="user.login.uuid"
       >
-        <div class="fade">
-          {{ fullName($index) }}
-        </div>
-        <img
-          class="user__thumbnail"
-          :src="user.picture.medium"
-          :alt="user.name.first"
-        />
+        <RouterLink :to="`user/${user.login.username}`">
+          <div class="fade">
+            {{ fullName($index) }}
+          </div>
+          <img
+            class="user__thumbnail"
+            :src="user.picture.medium"
+            :alt="user.name.first"
+          />
+        </RouterLink>
       </section>
     </article>
   </main>
@@ -26,6 +28,7 @@ export default {
   name: "AppUserList",
   mounted() {
     this.getUsers();
+    this.$root.$refs.AppUserList = this;
   },
   data() {
     return {
