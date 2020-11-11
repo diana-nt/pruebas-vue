@@ -19,6 +19,11 @@
         >Show user info</RouterLink
       >
       <RouterView />
+
+      <section class="user__other">
+        <a @click.prevent="loadPrevUser" href="#">Prev user</a> |
+        <a @click.prevent="loadNextUser" href="#">Next user</a>
+      </section>
     </template>
   </section>
 </template>
@@ -28,15 +33,44 @@ import { mapState } from "vuex";
 
 export default {
   name: "AppUser",
+  beforeRouteUpdate(to, from, next) {
+    this.username = to.params.username;
+    next();
+  },
   data() {
     return {
       username: this.$route.params.username
     };
   },
+  methods: {
+    loadPrevUser() {
+      this.$router.push({
+        name: "Users",
+        params: { username: this.prevUser.login.username }
+      });
+    },
+    loadNextUser() {
+      this.$router.push({
+        name: "Users",
+        params: { username: this.nextUser.login.username }
+      });
+    }
+  },
   computed: {
     ...mapState(["users"]),
     user() {
       return this.users.find(user => user.login.username === this.username);
+    },
+    userIndex() {
+      return this.users.findIndex(
+        user => user.login.username === this.username
+      );
+    },
+    prevUser() {
+      return this.users[this.userIndex - 1];
+    },
+    nextUser() {
+      return this.users[this.userIndex + 1];
     },
     userData() {
       return {
@@ -62,6 +96,10 @@ export default {
 .user__more {
   display: block;
   margin-top: 1rem;
+  color: black;
+}
+
+.user__other {
   color: black;
 }
 </style>
