@@ -13,7 +13,7 @@
       <RouterLink
         class="user__more"
         :to="{
-          path: `/user/${this.username}/info`,
+          name: 'Info',
           params: { username }
         }"
         >Show user info</RouterLink
