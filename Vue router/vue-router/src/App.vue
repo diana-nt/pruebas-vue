@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppHeader />
-    <transition name="fade" mode="out-in">
+    <transition name="fade" @after-leave="$root.$emit('triggerScroll')">
       <RouterView />
     </transition>
   </div>
