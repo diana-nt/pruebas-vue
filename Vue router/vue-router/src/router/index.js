@@ -15,7 +15,9 @@ const routes = [
   //   redirect: { name: "Home" }
   // },
   {
-    path: "/user", component: AppUserList, alias: "/"
+    path: "/user",
+    component: AppUserList,
+    alias: "/"
   },
   {
     path: "/user",
