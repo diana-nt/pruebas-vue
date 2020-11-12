@@ -1,10 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import AppUserList from "../views/AppUserList.vue";
-import AppContact from "@/views/AppContact";
-import AppLegal from "@/views/AppLegal";
-import AppUser from "@/views/AppUser";
-import UserInfo from "@/components/UserInfo";
+// import AppUserList from "../views/AppUserList.vue";
+// import AppContact from "@/views/AppContact";
+// import AppLegal from "@/views/AppLegal";
+// import AppUser from "@/views/AppUser";
+// import UserInfo from "@/components/UserInfo";
 import NotFound from "@/components/NotFound";
 
 Vue.use(VueRouter);
@@ -16,34 +16,36 @@ const routes = [
   // },
   {
     path: "/user",
-    component: AppUserList,
+    name: "Home",
+    component: () => import(/* webpackChunkName: "AppUserList" */"../views/AppUserList.vue"),
     alias: "/"
   },
-  {
+  /*  {
     path: "/user",
     name: "Home",
     component: AppUserList
-  },
+  },*/
   {
     path: "/contact",
     name: "Contact",
-    component: AppContact
+    component: () => import(/* webpackChunkName: "AppContact" */"../views/AppContact.vue"),
   },
   {
     path: "/legal",
     name: "Legal",
-    component: AppLegal
+    component: () => import(/* webpackChunkName: "AppLegal" */"../views/AppLegal.vue"),
+
   },
   {
     path: "/user/:username",
     name: "Users",
-    component: AppUser,
+    component: () => import(/* webpackChunkName: "AppUser" */"../views/AppUser.vue"),
     children: [
       {
         path: "info",
         name: "Info",
         props: true,
-        component: UserInfo
+        component: () => import(/* webpackChunkName: "UserInfo" */"../components/UserInfo.vue"),
       }
     ]
   },
