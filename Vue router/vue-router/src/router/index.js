@@ -10,6 +10,13 @@ import NotFound from "@/components/NotFound";
 Vue.use(VueRouter);
 
 const routes = [
+  // {
+  //   path: "/",
+  //   redirect: { name: "Home" }
+  // },
+  {
+    path: "/user", component: AppUserList, alias: "/"
+  },
   {
     path: "/user",
     name: "Home",
@@ -38,7 +45,7 @@ const routes = [
       }
     ]
   },
-  { path: "*", component: NotFound}
+  { path: "*", component: NotFound }
   // {
   //   path: "/about",
   //   name: "About",

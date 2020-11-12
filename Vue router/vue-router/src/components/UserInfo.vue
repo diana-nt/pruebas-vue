@@ -1,7 +1,7 @@
 <template>
   <div class="info">
     <p v-for="(value, key, index) in userLocation" :key="index">
-        <strong>{{ key }}</strong> : {{value}}
+      <strong>{{ key }}</strong> : {{ value }}
     </p>
   </div>
 </template>
