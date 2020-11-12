@@ -2,9 +2,15 @@
   <header class="header">
     <h1 class="header__title">User Directory</h1>
     <nav class="header__nav">
-      <RouterLink class="header__nav__link" :to="{name: 'Home'}">Directory</RouterLink>
-      <RouterLink class="header__nav__link" :to="{name: 'Contact'}">Contact</RouterLink>
-      <RouterLink class="header__nav__link" :to="{name: 'Legal'}">Legal</RouterLink>
+      <RouterLink class="header__nav__link" :to="{ name: 'Home' }"
+        >Directory</RouterLink
+      >
+      <RouterLink class="header__nav__link" :to="{ name: 'Contact' }"
+        >Contact</RouterLink
+      >
+      <RouterLink class="header__nav__link" :to="{ name: 'Legal' }"
+        >Legal</RouterLink
+      >
     </nav>
   </header>
 </template>
@@ -38,5 +44,11 @@ export default {
 .header__nav__link {
   text-decoration: none;
   color: white;
+}
+
+nav a.escuela-vue-exact,
+nav a.escuela-vue-active {
+  color: goldenrod;
+  border-bottom: 1px solid;
 }
 </style>
